@@ -44,7 +44,6 @@ function processReultsFromAPI(presence) {
                     console.log('No alerting required as person left home when the other person was at home');
                     updateAlertStatus(personsArray[1]);
                 }  else {
-                    console.log('Sending alert...');
                     sendTelegramAlert(personsArray[1], presence[personsArray[1]].status);
                     updateAlertStatus(personsArray[1]);
                 }
@@ -78,7 +77,6 @@ function updateAlertStatus(person) {
 }
 
 async function doProcess() {
-    console.log(PRESENCE_API_URL);
     unirest.get(PRESENCE_API_URL)
         .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .end(function (response) {
