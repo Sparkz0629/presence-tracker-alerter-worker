@@ -39,7 +39,7 @@ function processReultsFromAPI(presence) {
                     console.log('No alerting required as person arrived home when the other person is home too.');
                     updateAlertStatus(personsArray[1]);
                 } else {
-                    sendTelegramAlert(personsArray[1], presence[personsArray[0]].status);
+                    sendTelegramAlert(personsArray[1], presence[personsArray[1]].status);
                     updateAlertStatus(personsArray[1]);
                 }
             }
