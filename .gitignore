@@ -1,0 +1,4 @@
+.idea
+node_modules
+presence-tracker-alerter-worker-docker/
+package-lock.json
