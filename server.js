@@ -28,6 +28,7 @@ function processReultsFromAPI(presence) {
             //Only one person's status changed, so we ensure it is not the same as the other person and also at home. We wont alert in that situation.
             if (presence[personsArray[0]].alerted === false) {
                 if (presence[personsArray[0]].status === presence[personsArray[1]].status && presence[personsArray[0]].status === 'entered'){
+                    console.log('No alerting required as person arrived home when the other person is home too.');
                     updateAlertStatus(personsArray[0]);
                 } else {
                     sendTelegramAlert(personsArray[0], presence[personsArray[0]].status);
@@ -35,6 +36,7 @@ function processReultsFromAPI(presence) {
                 }
             } else {
                 if (presence[personsArray[1]].status === presence[personsArray[0]].status && presence[personsArray[1]].status === 'entered'){
+                    console.log('No alerting required as person arrived home when the other person is home too.');
                     updateAlertStatus(personsArray[1]);
                 } else {
                     sendTelegramAlert(personsArray[1], presence[personsArray[0]].status);
