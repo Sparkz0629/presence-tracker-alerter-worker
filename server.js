@@ -52,7 +52,7 @@ function sendTelegramAlert(person, message) {
 }
 
 function updateAlertStatus(person) {
-    unirest.put(PRESENCE_API_URL + person + '/alerted')
+    unirest.patch(PRESENCE_API_URL + person + '/alerted')
         .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .end(function (response) {
             console.log(PRESENCE_API_URL + person + '/alerted')
