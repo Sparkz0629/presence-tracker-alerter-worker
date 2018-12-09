@@ -7,7 +7,7 @@ const BOT_TOKEN = process.env.BOT_TOKEN;
 const BOT_CHAT_ID = process.env.BOT_CHAT_ID;
 
 function processReultsFromAPI(presence) {
-    console.log(presence);
+    // console.log(presence);
     if (Object.keys(presence).length < 2) {
         console.log('Presence empty or less than 2');
     } else {
@@ -17,15 +17,13 @@ function processReultsFromAPI(presence) {
         }
 
         if (presence[personsArray[0]].alerted === presence[personsArray[1]].alerted) {
-            console.log('alerted status is the same for both, so no need to alert');
             if (presence[personsArray[0]].alerted === false) {
+                console.log('Couple '+ presence[personsArray[0]].status + 'together. No alerting required.');
                 //This is a scenario where both the status were updated at the same time, so we wont alert, but we do need to update the alerted status to true
                 updateAlertStatus(personsArray[0]);
                 updateAlertStatus(personsArray[1]);
             }
         } else {
-            console.log('alerted status differs, so lets alert for the necessary person and update alerted status');
-            //Only one person's status changed, so we ensure it is not the same as the other person and also at home. We wont alert in that situation.
             if (presence[personsArray[0]].alerted === false) {
                 if (presence[personsArray[0]].status === presence[personsArray[1]].status && presence[personsArray[0]].status === 'entered') {
                     console.log('No alerting required as person arrived home when the other person is home too.');
@@ -34,6 +32,7 @@ function processReultsFromAPI(presence) {
                     console.log('No alerting required as person left home when the other person was at home');
                     updateAlertStatus(personsArray[0]);
                 } else {
+                    console.log('Sending alert...');
                     sendTelegramAlert(personsArray[0], presence[personsArray[0]].status);
                     updateAlertStatus(personsArray[0]);
                 }
@@ -45,6 +44,7 @@ function processReultsFromAPI(presence) {
                     console.log('No alerting required as person left home when the other person was at home');
                     updateAlertStatus(personsArray[1]);
                 }  else {
+                    console.log('Sending alert...');
                     sendTelegramAlert(personsArray[1], presence[personsArray[1]].status);
                     updateAlertStatus(personsArray[1]);
                 }
