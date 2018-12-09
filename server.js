@@ -25,12 +25,21 @@ function doAlerting(presence) {
             }
         } else {
             console.log('alerted status differs, so lets alert for the necessary person and update alerted status');
+            //Only one person's status changed, so we ensure it is not the same as the other person and also at home. We wont alert in that situation.
             if (presence[personsArray[0]].alerted === false) {
-                sendTelegramAlert(personsArray[0], presence[personsArray[0]].status);
-                updateAlertStatus(personsArray[0]);
+                if (presence[personsArray[0]].status === presence[personsArray[1]].status && presence[personsArray[0]].status === 'entered'){
+                    updateAlertStatus(personsArray[0]);
+                } else {
+                    sendTelegramAlert(personsArray[0], presence[personsArray[0]].status);
+                    updateAlertStatus(personsArray[0]);
+                }
             } else {
-                sendTelegramAlert(personsArray[1], presence[personsArray[1]].status);
-                updateAlertStatus(personsArray[1]);
+                if (presence[personsArray[1]].status === presence[personsArray[0]].status && presence[personsArray[1]].status === 'entered'){
+                    updateAlertStatus(personsArray[1]);
+                } else {
+                    sendTelegramAlert(personsArray[1], presence[personsArray[0]].status);
+                    updateAlertStatus(personsArray[1]);
+                }
             }
         }
     }
