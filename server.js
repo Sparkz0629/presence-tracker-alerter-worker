@@ -18,7 +18,7 @@ function processReultsFromAPI(presence) {
 
         if (presence[personsArray[0]].alerted === presence[personsArray[1]].alerted) {
             if (presence[personsArray[0]].alerted === false) {
-                console.log('Couple '+ presence[personsArray[0]].status + 'together. No alerting required.');
+                console.log('Couple '+ presence[personsArray[0]].status + ' together. No alerting required.');
                 //This is a scenario where both the status were updated at the same time, so we wont alert, but we do need to update the alerted status to true
                 updateAlertStatus(personsArray[0]);
                 updateAlertStatus(personsArray[1]);
