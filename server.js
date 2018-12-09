@@ -6,7 +6,7 @@ const BOT_ID = process.env.BOT_ID;
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const BOT_CHAT_ID = process.env.BOT_CHAT_ID;
 
-function doAlerting(presence) {
+function processReultsFromAPI(presence) {
     console.log(presence);
     if (Object.keys(presence).length < 2) {
         console.log('Presence empty or less than 2');
@@ -45,6 +45,7 @@ function doAlerting(presence) {
     }
 }
 
+
 function sendTelegramAlert(person, message) {
     console.log('Alert: ' + person + ' has ' + message + ' GR');
     let message_text = '';
@@ -73,7 +74,7 @@ async function doProcess() {
     unirest.get(PRESENCE_API_URL)
         .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .end(function (response) {
-            doAlerting(response.body);
+            processReultsFromAPI(response.body);
         });
     await sleep(5000);
     doProcess();
